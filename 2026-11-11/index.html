@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Подборка недвижимости на Пхукете · House Estate</title>
+<meta name="description" content="Персональная подборка: 5 проектов на Пхукете — Ката, Найтон, Раваи, Камала, Банг Тао.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f1e8; --paper:#fffdf9; --ink:#17252a; --muted:#6b7a7d; --line:#e4dccd;
+  --sea:#0f5257; --sea-deep:#0a3a3e; --sand:#c9a26b; --sand-soft:#f0e4d0;
+  --r:18px; --serif:"Cormorant Garamond",Georgia,serif; --sans:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+
+/* top bar */
+.bar{position:sticky;top:0;z-index:20;background:rgba(246,241,232,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:20px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.02em;text-decoration:none;white-space:nowrap}
+.brand i{display:grid;place-items:center;width:30px;height:30px;border-radius:8px;background:var(--sea);color:#fff;font:600 19px/1 var(--serif);font-style:normal}
+.nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{padding:7px 13px;border-radius:99px;font-size:14px;font-weight:500;color:var(--muted);text-decoration:none;white-space:nowrap}
+.nav a:hover{background:var(--sand-soft);color:var(--ink)}
+
+/* hero */
+.hero{background:linear-gradient(160deg,var(--sea-deep),var(--sea) 60%,#1b6f6c);color:#fff;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-140px;top:-140px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,107,.42),transparent 65%)}
+.hero .wrap{position:relative;z-index:1;padding-top:84px;padding-bottom:76px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--sand)}
+h1{font:500 clamp(42px,7vw,84px)/1.02 var(--serif);margin:16px 0 22px;letter-spacing:-.01em;text-wrap:balance}
+h1 em{color:var(--sand)}
+.hero p{max-width:580px;margin:0;color:rgba(255,255,255,.8);font-size:17px}
+.agent{margin-top:42px;display:flex;flex-wrap:wrap;gap:12px 34px;padding-top:24px;border-top:1px solid rgba(255,255,255,.18);font-size:14px}
+.agent b{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:600}
+.agent a{text-decoration:none}
+
+/* overview */
+section{padding:72px 0}
+h2{font:500 clamp(32px,4.4vw,50px)/1.08 var(--serif);margin:0 0 8px;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:0 0 28px}
+.tbl{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:680px}
+th,td{padding:15px 18px;text-align:left;border-bottom:1px solid var(--line);font-size:15px;white-space:nowrap}
+th{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600}
+tr:last-child td{border-bottom:0}
+tbody tr{cursor:pointer;transition:background .15s}
+tbody tr:hover{background:var(--sand-soft)}
+td.n{font:600 21px/1 var(--serif)}
+td.p{font-weight:700;color:var(--sea)}
+.note{margin-top:14px;font-size:14px;color:var(--muted)}
+
+/* project */
+.project{padding:76px 0;border-top:1px solid var(--line)}
+.phead{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.num{font:italic 500 21px/1 var(--serif);color:var(--sand)}
+.phead h2{margin-top:6px}
+.loc{color:var(--muted);margin:6px 0 0}
+.from{text-align:right}
+.from small{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.from strong{font:600 40px/1.1 var(--serif);color:var(--sea)}
+.grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:30px;align-items:start}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.from{text-align:left}}
+
+/* carousel */
+.car{position:relative;border-radius:var(--r);overflow:hidden;background:#0d1f22}
+.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;aspect-ratio:16/10}
+.track::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;scroll-snap-align:center;position:relative;margin:0;cursor:zoom-in}
+.slide img{width:100%;height:100%;object-fit:cover;display:block}
+.slide.plan{background:#fff}.slide.plan img{object-fit:contain}
+.slide figcaption{position:absolute;left:14px;bottom:14px;padding:5px 12px;border-radius:99px;background:rgba(10,30,33,.66);color:#fff;font-size:13px;backdrop-filter:blur(6px)}
+.arr{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.92);color:var(--ink);font-size:20px;cursor:pointer;display:grid;place-items:center;box-shadow:0 4px 18px rgba(0,0,0,.2);transition:transform .15s}
+.arr:hover{transform:translateY(-50%) scale(1.08)}
+.arr.l{left:14px}.arr.r{right:14px}
+.count{position:absolute;right:14px;top:14px;padding:4px 11px;border-radius:99px;background:rgba(10,30,33,.66);color:#fff;font-size:13px;font-variant-numeric:tabular-nums}
+.thumbs{display:flex;gap:8px;margin-top:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.thumbs::-webkit-scrollbar{display:none}
+.thumbs button{flex:0 0 84px;height:58px;padding:0;border:2px solid transparent;border-radius:10px;overflow:hidden;cursor:pointer;background:#ddd;opacity:.62;transition:opacity .15s}
+.thumbs button.on{border-color:var(--sea);opacity:1}
+.thumbs img{width:100%;height:100%;object-fit:cover;display:block}
+.nophoto{border-radius:var(--r);aspect-ratio:16/10;display:grid;place-items:center;text-align:center;padding:30px;color:rgba(255,255,255,.88);background:linear-gradient(140deg,var(--sea-deep),var(--sea));font:500 30px/1.2 var(--serif)}
+.nophoto small{display:block;margin-top:10px;font:400 14px var(--sans);color:rgba(255,255,255,.6)}
+
+/* info */
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+.card+.card{margin-top:16px}
+.card h3{margin:0 0 14px;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.unit{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:13px 0;border-bottom:1px dashed var(--line)}
+.unit:first-of-type{padding-top:0}.unit:last-child{border:0;padding-bottom:0}
+.unit b{font-weight:600}.unit span{display:block;font-size:13px;color:var(--muted)}
+.price{text-align:right;white-space:nowrap}
+.price b{font:600 25px/1.1 var(--serif);color:var(--sea)}
+.facts{display:grid;gap:15px;margin:0}
+.facts div{display:grid;grid-template-columns:28px 1fr;gap:10px}
+.facts dt{font-size:19px;line-height:1.3}
+.facts dd{margin:0;font-size:15px}
+.facts dd b{display:block;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.tags{display:flex;flex-wrap:wrap;gap:7px}
+.tags span{padding:5px 12px;border-radius:99px;background:var(--sand-soft);font-size:13px}
+.badge{display:inline-flex;gap:7px;align-items:center;padding:8px 14px;border-radius:99px;background:#e2efe9;color:#14553f;font-size:13px;font-weight:600;margin-top:16px}
+.quote{margin-top:16px;padding:20px 22px;border-left:3px solid var(--sand);background:var(--sand-soft);border-radius:0 var(--r) var(--r) 0;font-size:15px}
+.quote b{display:block;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+
+/* payment plans */
+.plans{margin-top:30px}
+.plans h3{font:500 28px/1.2 var(--serif);margin:0 0 14px}
+.pgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media(max-width:900px){.pgrid{grid-template-columns:1fr}}
+.card.plan{margin:0}
+.plan h4{margin:0;font:600 24px/1.2 var(--serif)}
+.plan .ps{font-size:13px;color:var(--muted);margin:2px 0 16px}
+.plan ol{list-style:none;margin:0;padding:0}
+.plan li{display:grid;grid-template-columns:54px 1fr;gap:10px;padding:11px 0;border-top:1px dashed var(--line);font-size:14px}
+.plan li b{font:600 21px/1.2 var(--serif);color:var(--sea)}
+.plan li span{color:var(--muted)}
+
+/* video */
+.videos{margin-top:30px}
+.videos h3{font:500 28px/1.2 var(--serif);margin:0 0 14px}
+.vrow{display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start}
+.vid{flex:1 1 420px;max-width:760px}
+.vid.short{flex:0 1 300px}
+.vbox{position:relative;border-radius:var(--r);overflow:hidden;background:#000;aspect-ratio:16/9}
+.vid.short .vbox{aspect-ratio:9/16}
+.vbox iframe,.vbox button{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vbox button{padding:0;cursor:pointer;background:#000}
+.vbox button img{width:100%;height:100%;object-fit:cover;opacity:.84;transition:opacity .2s,transform .4s}
+.vbox button:hover img{opacity:1;transform:scale(1.03)}
+.play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:74px;height:74px;border-radius:50%;background:rgba(255,255,255,.95);display:grid;place-items:center;box-shadow:0 8px 30px rgba(0,0,0,.35)}
+.play:after{content:"";margin-left:5px;border-left:21px solid var(--sea);border-top:13px solid transparent;border-bottom:13px solid transparent}
+.vid p{margin:10px 2px 0;font-size:14px;color:var(--muted)}
+
+/* footer */
+footer{background:var(--sea-deep);color:#fff;padding:68px 0}
+footer h2{color:#fff}
+footer p{color:rgba(255,255,255,.72);max-width:520px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.btn{padding:14px 24px;border-radius:99px;text-decoration:none;font-weight:600;background:var(--sand);color:var(--sea-deep)}
+.btn.o{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
+.fine{margin-top:38px;font-size:13px;color:rgba(255,255,255,.45)}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:50;background:rgba(6,18,20,.95);display:none;align-items:center;justify-content:center}
+.lb.on{display:flex}
+.lb img{max-width:94vw;max-height:90vh;object-fit:contain;border-radius:8px}
+.lb .x{position:absolute;right:18px;top:14px;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:24px;cursor:pointer}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="wrap">
+  <a class="brand" href="#top"><i>H</i>House Estate</a>
+  <nav class="nav" id="nav"></nav>
+</div></div>
+
+<header class="hero" id="top"><div class="wrap">
+  <div class="eyebrow">Персональная подборка · 11 ноября 2026</div>
+  <h1>Пять проектов<br>на <em>Пхукете</em></h1>
+  <p>Квартиры с одной спальней от застройщиков, с беспроцентной рассрочкой на период строительства. Ката, Найтон, Раваи, Камала и Банг Тао.</p>
+  <div class="agent">
+    <div><b>Ваш агент</b>Kirill Drygin · House Estate</div>
+    <div><b>Телефон</b><a href="tel:+66843499745">+66 84 349 9745</a></div>
+    <div><b>Email</b><a href="mailto:kirill.drygin@thaihouseagency.com">kirill.drygin@thaihouseagency.com</a></div>
+  </div>
+</div></header>
+
+<section id="overview"><div class="wrap">
+  <h2>Коротко о вариантах</h2>
+  <p class="sub">Нажмите на строку, чтобы перейти к проекту.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>№</th><th>Локация</th><th>До пляжа</th><th>Площадь</th><th>Цена от</th><th>Сдача</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table></div>
+  <p class="note">Во всех проектах — беспроцентная рассрочка на период строительства.</p>
+</div></section>
+
+<main id="projects"></main>
+
+<footer><div class="wrap">
+  <h2>Обсудим варианты?</h2>
+  <p>Отвечу на вопросы, пришлю планировки и актуальное наличие, организую просмотр шоурумов.</p>
+  <div class="cta">
+    <a class="btn" href="https://wa.me/66843499745">Написать в WhatsApp</a>
+    <a class="btn o" href="tel:+66843499745">+66 84 349 9745</a>
+    <a class="btn o" href="mailto:kirill.drygin@thaihouseagency.com">kirill.drygin@thaihouseagency.com</a>
+  </div>
+  <div class="fine">Kirill Drygin · House Estate. Цены и наличие актуальны на 11 ноября 2026 г. и могут измениться.</div>
+</div></footer>
+
+<div class="lb" id="lb"><button class="x" aria-label="Закрыть">×</button><img alt=""></div>
+
+<script>
+/* ===== ДАННЫЕ: правьте здесь ===== */
+const R2 = 'https://pub-d067b620bdf54076bffcdab939e4d1f6.r2.dev/archives/';
+const VB = 'https://orqesotfkbouxvu7.public.blob.vercel-storage.com/project/';
+const K  = R2 + 'nBsSvekDKxXDCAuR1dIiP/';
+const KE = K + 'new Perspective-20260706T131744Z-3-001/11. Perspective/';
+const KS = K + '12. Photo of Show Units/';
+const N  = R2 + 'HWGftpQWextoPjE6Zq53E/';
+const NE = R2 + 'fRQRez9uQQ9l9nxK0tVPJ/';
+
+// photo: [url, подпись?, 'plan'?]
+const PROJECTS = [
+ { id:'kata', title:'Ката', loc:'Ката · 15 минут пешком до пляжа', beach:'15 мин пешком',
+   area:'37–47 м²', from:'$174,000', done:'3 кв. 2027', doneNote:'примерно через 10 месяцев',
+   units:[['1 спальня','37 м²','$174,000','5,827,000 бат'],['1+1 спальня','47 м²','$217,000','7,300,000 бат']],
+   pay:'Беспроцентная на период строительства. Первоначальный взнос — 50%.',
+   furnished:true,
+   tags:['Бассейн','Детский бассейн','Серф-кафе','Коворкинг','Большой спортзал','Зона йоги','Боксёрский ринг','Бассейн и двор для питомцев','Променад'],
+   photos:[
+     [KE+'Exterior/03 Building D.jpg','Фасад'],
+     [KE+'Exterior/06 The Mediterranean Riviera Promenade.jpg','Променад'],
+     [KE+'Exterior/17 The Sunset Beach 02.jpg','Sunset Beach'],
+     [KE+'Exterior/04 sky pool.jpg','Sky pool'],
+     [KE+'Exterior/07 The Indigo oasis.jpg','Indigo Oasis'],
+     [KE+'Exterior/12 The Paradise Island 01.jpg','Paradise Island'],
+     [KE+'Interior/1-Main Lobby.jpg','Лобби'],
+     [KE+'Interior/1-Surf Cafe.jpg','Серф-кафе'],
+     [KE+'Interior/Fitness Room_01.jpg','Спортзал'],
+     [KS+'36-DSCF0290.JPG','Шоурум · 37 м²'],[KS+'36-DSCF0291.JPG','Шоурум · 37 м²'],
+     [KS+'36-DSCF0292.JPG','Шоурум · 37 м²'],[KS+'36-DSCF0293.JPG','Шоурум · 37 м²'],
+     [VB+'A3Ev73s5ErkMEWonIUM8g/1783347079169-gvea3dhw9g-1bl.jpg','Планировка · 37 м²','plan'],
+     [KS+'47-DSCF0316.JPG','Шоурум · 47 м²'],[KS+'47-DSCF0317.JPG','Шоурум · 47 м²'],
+     [KS+'47-DSCF0318.JPG','Шоурум · 47 м²'],[KS+'47-DSCF0319.JPG','Шоурум · 47 м²'],
+     [VB+'A3Ev73s5ErkMEWonIUM8g/1783347727748-ticbneftnsg-1bpm.jpg','Планировка · 47 м²','plan'],
+   ],
+   videos:[{id:'rx8cAtLaGvs',label:'Шоурум · 47 м²'}] },
+
+ { id:'naithon', title:'Найтон', loc:'Найтон · 10 минут пешком до пляжа', beach:'10 мин пешком',
+   area:'37 м²', from:'$140,000', done:'4 кв. 2028', doneNote:'примерно через 2 года',
+   units:[['1 спальня','37 м²','$140,000','4,700,000 бат']],
+   pay:'Беспроцентная на 2 года, на период строительства.',
+   furnished:true,
+   tags:['Бассейн','Спортзал','Детская зона','Лобби','Терраса на крыше'],
+   photos:[
+     [NE+'Exterior 04.jpg'],[NE+'Exterior 02.jpg'],[NE+'Exterior 03.jpg'],
+     [N+'01.jpg'],[N+'02.jpg'],[N+'03.jpg'],[N+'04.jpg'],[N+'05.jpg'],
+     [N+'CGSCAPE-SAINTTOPEZ-10.jpg'],[N+'CGSCAPE-SAINTTOPEZ-09.jpg'],[N+'CGSCAPE-SAINTTOPEZ-07.jpg'],
+   ],
+   videos:[] },
+
+ { id:'rawai', title:'Раваи', loc:'Раваи · 10 минут на машине до пляжа', beach:'10 мин на машине',
+   area:'39 м²', from:'$151,000', done:'4 кв. 2028', doneNote:'примерно через 2 года',
+   units:[['1 спальня','39 м²','$151,000','5,060,000 бат']],
+   pay:'Беспроцентная на 2 года, на период строительства. Можно продлить ещё на 1–2 года после сдачи проекта — тогда стоимость будет чуть выше.',
+   furnished:true, tags:[], photos:[],
+   plansNote:'В планах с постоплатой стоимость квартиры будет чуть выше.',
+   plans:[
+     {t:'План оплат 1', s:'Всё до сдачи проекта', steps:[
+       ['30%','включая депозит — при бронировании и в течение 30 дней после внесения депозита'],
+       ['20%','после начала строительных работ выше отметки 0.000'],
+       ['20%','после завершения монолитного каркаса'],
+       ['20%','после завершения фасадных работ'],
+       ['10%','при завершении строительства']]},
+     {t:'План оплат 2', s:'С постоплатой 1 год', steps:[
+       ['30%','включая депозит — при бронировании и в течение 30 дней после внесения депозита'],
+       ['20%','после начала строительных работ выше отметки 0.000'],
+       ['20%','после завершения монолитного каркаса'],
+       ['15%','через 6 месяцев после завершения строительства'],
+       ['15%','через 12 месяцев после завершения строительства']]},
+     {t:'План оплат 3', s:'С постоплатой 2 года', steps:[
+       ['30%','включая депозит — при бронировании и в течение 30 дней после внесения депозита'],
+       ['20%','после начала строительных работ выше отметки 0.000'],
+       ['20%','после завершения монолитного каркаса'],
+       ['15%','через 12 месяцев после завершения строительства'],
+       ['15%','через 24 месяца после завершения строительства']]},
+   ],
+   videos:[{id:'vl8FriNsPQg',short:true,label:'Шоурум · на видео квартира 59 м². Квартира 39 м² будет выглядеть так же по стилю, только меньше.'}],
+   comment:'Помню, вы говорили, что этот район вам не очень нравится, но я всё же решил добавить этот вариант: здесь хорошее соотношение цены и качества, а также есть возможность оформить рассрочку на целых 4 года. Другие застройщики обычно дают только на 2 года.' },
+
+ { id:'kamala', title:'Камала', loc:'Камала · 400 м до моря, примерно 8 минут пешком', beach:'400 м · 8 мин пешком',
+   area:'40–46 м²', from:'$182,000', done:'4 кв. 2028', doneNote:'через 2 года',
+   units:[['1 спальня','40 м²','$182,000',''],['1+1 спальня','46 м²','$217,000','']],
+   pay:'Беспроцентная на период строительства.',
+   tags:[], photos:[],
+   videos:[{id:'Hm_pLBFOpvc',short:true,label:'Шоурум · 40 м²'},{id:'V9ZHycWMnIQ',label:'Шоурум · 46 м²'}] },
+
+ { id:'bangtao', title:'Банг Тао', loc:'Банг Тао · 5 минут на машине до пляжа', beach:'5 мин на машине',
+   area:'42,5 м²', from:'$191,000', done:'4 кв. 2028', doneNote:'примерно через 2 года',
+   units:[['1 спальня','42,5 м²','$191,000','']],
+   pay:'Беспроцентная на период строительства.',
+   around:'В пешей доступности — Boat Avenue и Porto de Phuket: популярные места с большим выбором ресторанов, кафе, магазинов, спа и других удобств.',
+   tags:['Boat Avenue','Porto de Phuket','Рестораны и кафе','Магазины','Спа'], photos:[], videos:[] },
+];
+/* ===== конец данных ===== */
+
+const OPT = 'https://house-estate.thairealty.online/_next/image';
+const direct = u => encodeURI(u);
+const opt = (u,w) => `${OPT}?url=${encodeURIComponent(u)}&w=${w}&q=75`;
+const imgTag = (u,w,alt='') => `<img loading="lazy" decoding="async" alt="${alt}" src="${opt(u,w)}" data-full="${direct(u)}" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=this.dataset.full}">`;
+const $ = (s,r=document) => r.querySelector(s);
+
+$('#nav').innerHTML = PROJECTS.map((p,i)=>`<a href="#${p.id}">${i+1}. ${p.title}</a>`).join('');
+$('#rows').innerHTML = PROJECTS.map((p,i)=>`<tr data-go="${p.id}"><td class="n">${i+1}</td><td><b>${p.title}</b></td><td>${p.beach}</td><td>${p.area}</td><td class="p">${p.from}</td><td>${p.done}</td></tr>`).join('');
+$('#rows').addEventListener('click',e=>{const tr=e.target.closest('tr');if(tr)location.hash=tr.dataset.go});
+
+const carousel = p => p.photos.length ? `
+  <div class="car">
+    <div class="track">${p.photos.map(([u,c,k])=>`<figure class="slide ${k||''}">${imgTag(u,1200,c||p.title)}${c?`<figcaption>${c}</figcaption>`:''}</figure>`).join('')}</div>
+    <button class="arr l" aria-label="Назад">‹</button><button class="arr r" aria-label="Вперёд">›</button>
+    <div class="count">1 / ${p.photos.length}</div>
+  </div>
+  <div class="thumbs">${p.photos.map(([u],i)=>`<button class="${i?'':'on'}" aria-label="Фото ${i+1}">${imgTag(u,640)}</button>`).join('')}</div>`
+  : `<div class="nophoto"><div>${p.title}<small>Фото и планировки пришлю по запросу</small></div></div>`;
+
+const video = v => `<div class="vid ${v.short?'short':''}">
+  <div class="vbox"><button data-yt="${v.id}" aria-label="Смотреть видео"><img loading="lazy" alt="" src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg"><span class="play"></span></button></div>
+  <p>${v.label}</p></div>`;
+
+$('#projects').innerHTML = PROJECTS.map((p,i)=>`
+<article class="project" id="${p.id}"><div class="wrap">
+  <div class="phead">
+    <div><div class="num">Проект ${i+1}</div><h2>${p.title}</h2><p class="loc">📍 ${p.loc}</p></div>
+    <div class="from"><small>Цена от</small><strong>${p.from}</strong></div>
+  </div>
+  <div class="grid">
+    <div>${carousel(p)}</div>
+    <aside>
+      <div class="card"><h3>Варианты квартир</h3>
+        ${p.units.map(u=>`<div class="unit"><div><b>${u[0]}</b><span>${u[1]}</span></div><div class="price"><b>${u[2]}</b>${u[3]?`<span>${u[3]}</span>`:''}</div></div>`).join('')}
+        ${p.furnished?'<div class="badge">✓ Мебель и техника входят в стоимость</div>':''}
+      </div>
+      <div class="card"><h3>Условия</h3><dl class="facts">
+        <div><dt>🏗️</dt><dd><b>Сдача</b>${p.done} · ${p.doneNote}</dd></div>
+        <div><dt>💳</dt><dd><b>Рассрочка</b>${p.pay}</dd></div>
+        ${p.around?`<div><dt>🌴</dt><dd><b>Рядом</b>${p.around}</dd></div>`:''}
+      </dl></div>
+      ${p.tags.length?`<div class="card"><h3>${p.around?'Инфраструктура рядом':'Удобства'}</h3><div class="tags">${p.tags.map(t=>`<span>${t}</span>`).join('')}</div></div>`:''}
+      ${p.comment?`<div class="quote"><b>Комментарий агента</b>${p.comment}</div>`:''}
+    </aside>
+  </div>
+  ${p.plans?`<div class="plans"><h3>Планы оплат</h3><div class="pgrid">${p.plans.map(pl=>`<div class="card plan"><h4>${pl.t}</h4><div class="ps">${pl.s}</div><ol>${pl.steps.map(([a,d])=>`<li><b>${a}</b><span>${d}</span></li>`).join('')}</ol></div>`).join('')}</div>${p.plansNote?`<p class="note">${p.plansNote}</p>`:''}</div>`:''}
+  ${p.videos.length?`<div class="videos"><h3>Видео шоурума</h3><div class="vrow">${p.videos.map(video).join('')}</div></div>`:''}
+</div></article>`).join('');
+
+/* carousels */
+document.querySelectorAll('.car').forEach(car=>{
+  const track=$('.track',car), n=track.children.length, count=$('.count',car);
+  const thumbs=[...car.nextElementSibling.children];
+  const idx=()=>Math.round(track.scrollLeft/track.clientWidth);
+  const go=i=>track.scrollTo({left:((i+n)%n)*track.clientWidth,behavior:'smooth'});
+  $('.l',car).onclick=()=>go(idx()-1); $('.r',car).onclick=()=>go(idx()+1);
+  thumbs.forEach((b,i)=>b.onclick=()=>go(i));
+  let t; track.addEventListener('scroll',()=>{clearTimeout(t);t=setTimeout(()=>{
+    const i=idx(); count.textContent=`${i+1} / ${n}`;
+    thumbs.forEach((b,j)=>b.classList.toggle('on',i===j));
+    const th=thumbs[i], box=th.parentElement; box.scrollTo({left:th.offsetLeft-box.clientWidth/2+th.clientWidth/2,behavior:'smooth'});
+  },60)});
+  track.addEventListener('click',e=>{const im=e.target.closest('.slide')?.querySelector('img');if(im){$('#lb img').src=im.dataset.f?im.dataset.full:opt(decodeURI(im.dataset.full),1920);$('#lb img').onerror=function(){this.onerror=null;this.src=im.dataset.full};$('#lb').classList.add('on')}});
+});
+const lb=$('#lb'); lb.onclick=()=>lb.classList.remove('on');
+addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
+
+/* video: плеер подгружается по клику, смотреть можно прямо на странице */
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-yt]'); if(!b) return;
+  b.outerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${b.dataset.yt}?autoplay=1&rel=0&playsinline=1" title="Видео шоурума" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
+});
+</script>
+</body>
+</html>
