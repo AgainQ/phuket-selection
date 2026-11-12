@@ -124,6 +124,13 @@ td.p{font-weight:700;color:var(--sea)}
 .near b{font-weight:600;white-space:nowrap}
 .maplink{display:inline-block;margin-top:12px;font-size:14px;font-weight:600;color:var(--sea);text-decoration:none}
 
+/* video slides */
+.vslide{cursor:default;background:#000}
+.vslide button,.vslide iframe{position:absolute;inset:0;width:100%;height:100%;border:0;padding:0;background:#000}
+.vslide button{cursor:pointer}
+.vslide button img{opacity:.85}
+.vslide figcaption{left:14px;top:14px;bottom:auto;pointer-events:none}
+
 /* gallery chips */
 .chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
 .chips button{padding:7px 14px;border-radius:99px;border:1px solid var(--line);background:var(--paper);font:500 13px var(--sans);color:var(--ink);cursor:pointer}
@@ -310,7 +317,7 @@ const PROJECTS = [
        ['15%','через 12 месяцев после завершения строительства'],
        ['15%','через 24 месяца после завершения строительства']]},
    ],
-   videos:[{id:'vl8FriNsPQg',short:true,label:'Шоурум · на видео квартира 59 м². Квартира 39 м² будет выглядеть так же по стилю, только меньше.'}],
+   videos:[{id:'vl8FriNsPQg',label:'Шоурум · 59 м²',note:'На видео квартира 59 м². Квартира 39 м² будет выглядеть так же по стилю, только меньше.'}],
    comment:'Помню, вы говорили, что этот район вам не очень нравится, но я всё же решил добавить этот вариант: здесь хорошее соотношение цены и качества, а также есть возможность оформить рассрочку на целых 4 года. Другие застройщики обычно дают только на 2 года.' },
 
  { id:'kamala', geo:[7.9583156,98.2793055], near:[['Phuket FantaSea','318 м'],['Пляж Rayee','1,8 км'],['Пляж Laem Singh','1,9 км']], title:'Камала', loc:'Камала · 400 м до моря, примерно 8 минут пешком', beach:'400 м · 8 мин пешком',
@@ -361,9 +368,17 @@ $('#nav').innerHTML = PROJECTS.map((p,i)=>`<a href="#${p.id}">${i+1}. ${p.title}
 $('#rows').innerHTML = PROJECTS.map((p,i)=>`<tr data-go="${p.id}"><td class="n">${i+1}</td><td><b>${p.title}</b></td><td>${p.beach}</td><td>${p.area}</td><td class="p">${p.from}</td><td>${p.done}</td></tr>`).join('');
 $('#rows').addEventListener('click',e=>{const tr=e.target.closest('tr');if(tr)location.hash=tr.dataset.go});
 
-const GROUPS = [['cx','Комплекс'],['apt','Квартира'],['plan','Планировка']];
-const groupOf = (p,k) => p.photos.filter(x=>(x[2]||'cx')===k);
-const carHTML = (list,label) => `
+const GROUPS = [['cx','Комплекс'],['apt','Квартира'],['plan','Планировка'],['vid','Видео']];
+const groupOf = (p,k) => k==='vid' ? p.videos : p.photos.filter(x=>(x[2]||'cx')===k);
+const vidHTML = list => `
+  <div class="car">
+    <div class="track">${list.map(v=>`<figure class="slide vslide"><button data-yt="${v.id}" aria-label="Смотреть видео"><img loading="lazy" alt="" src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg"><span class="play"></span></button><figcaption>${v.label}</figcaption></figure>`).join('')}</div>
+    <button class="arr l" aria-label="Назад">‹</button><button class="arr r" aria-label="Вперёд">›</button>
+    <div class="count">1 / ${list.length}</div>
+  </div>
+  <div class="thumbs">${list.map((v,i)=>`<button class="${i?'':'on'}" aria-label="Видео ${i+1}"><img loading="lazy" alt="" src="https://i.ytimg.com/vi/${v.id}/mqdefault.jpg"></button>`).join('')}</div>
+  ${list.filter(v=>v.note).map(v=>`<p class="note">${v.note}</p>`).join('')}`;
+const carHTML = (list,label,k) => k==='vid' ? vidHTML(list) : `
   <div class="car">
     <div class="track">${list.map(([u,c,k])=>`<figure class="slide ${k==='plan'?'plan':''}">${imgTag(u,1200,c||label)}${c?`<figcaption>${c}</figcaption>`:''}</figure>`).join('')}</div>
     <button class="arr l" aria-label="Назад">‹</button><button class="arr r" aria-label="Вперёд">›</button>
@@ -372,7 +387,7 @@ const carHTML = (list,label) => `
   <div class="thumbs">${list.map(([u],i)=>`<button class="${i?'':'on'}" aria-label="Фото ${i+1}">${imgTag(u,640)}</button>`).join('')}</div>`;
 // одна галерея с вкладками: показываются только фото выбранной группы
 const gallery = p => { const g=GROUPS.filter(([k])=>groupOf(p,k).length);
-  return `<div class="gal" data-p="${p.id}"><div class="chips">${g.map(([k,t],i)=>`<button class="${i?'':'on'}" data-k="${k}">${t} · ${groupOf(p,k).length}</button>`).join('')}</div><div class="galbody">${carHTML(groupOf(p,g[0][0]),g[0][1])}</div></div>`; };
+  return `<div class="gal" data-p="${p.id}"><div class="chips">${g.map(([k,t],i)=>`<button class="${i?'':'on'}" data-k="${k}">${t} · ${groupOf(p,k).length}</button>`).join('')}</div><div class="galbody">${carHTML(groupOf(p,g[0][0]),g[0][1],g[0][0])}</div></div>`; };
 
 const mapCard = p => `<div class="gal"><h3 class="gl">Расположение</h3>
   <div class="map"><iframe loading="lazy" title="Карта: ${p.title}" src="https://www.google.com/maps?q=${p.geo.join(',')}&z=14&hl=ru&output=embed" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
@@ -407,7 +422,6 @@ $('#projects').innerHTML = PROJECTS.map((p,i)=>`
   </div>
   <div class="grid2 one">${mapCard(p)}</div>
   ${p.plans?`<div class="plans"><h3>Планы оплат</h3><div class="pgrid">${p.plans.map(pl=>`<div class="card plan"><h4>${pl.t}</h4><div class="ps">${pl.s}</div><ol>${pl.steps.map(([a,d])=>`<li><b>${a}</b><span>${d}</span></li>`).join('')}</ol></div>`).join('')}</div>${p.plansNote?`<p class="note">${p.plansNote}</p>`:''}</div>`:''}
-  ${p.videos.length?`<div class="videos"><h3>Видео шоурума</h3><div class="vrow">${p.videos.map(video).join('')}</div></div>`:''}
 </div></article>`).join('');
 
 /* carousels */
@@ -424,14 +438,14 @@ const initCar = gal => {
     thumbs.forEach((b,j)=>b.classList.toggle('on',i===j));
     const th=thumbs[i], box=th.parentElement; box.scrollTo({left:th.offsetLeft-box.clientWidth/2+th.clientWidth/2,behavior:'smooth'});
   },60)});
-  track.addEventListener('click',e=>{const im=e.target.closest('.slide')?.querySelector('img');if(im){$('#lb img').src=im.dataset.f?im.dataset.full:opt(decodeURI(im.dataset.full),1920);$('#lb img').onerror=function(){this.onerror=null;this.src=im.dataset.full};$('#lb').classList.add('on')}});
+  track.addEventListener('click',e=>{if(e.target.closest('.vslide'))return;const im=e.target.closest('.slide')?.querySelector('img');if(im){$('#lb img').src=im.dataset.f?im.dataset.full:opt(decodeURI(im.dataset.full),1920);$('#lb img').onerror=function(){this.onerror=null;this.src=im.dataset.full};$('#lb').classList.add('on')}});
 };
 document.querySelectorAll('.gal[data-p]').forEach(gal=>{
   initCar(gal);
   const p=PROJECTS.find(x=>x.id===gal.dataset.p);
   $('.chips',gal).addEventListener('click',e=>{const b=e.target.closest('[data-k]'); if(!b||b.classList.contains('on')) return;
     gal.querySelectorAll('.chips button').forEach(x=>x.classList.toggle('on',x===b));
-    $('.galbody',gal).innerHTML=carHTML(groupOf(p,b.dataset.k),b.textContent); initCar(gal);});
+    $('.galbody',gal).innerHTML=carHTML(groupOf(p,b.dataset.k),b.textContent,b.dataset.k); initCar(gal);});
 });
 const lb=$('#lb'); lb.onclick=()=>lb.classList.remove('on');
 addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
