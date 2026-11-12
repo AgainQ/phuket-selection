@@ -109,6 +109,11 @@ td.p{font-weight:700;color:var(--sea)}
 .quote{margin-top:16px;padding:20px 22px;border-left:3px solid var(--sand);background:var(--sand-soft);border-radius:0 var(--r) var(--r) 0;font-size:15px}
 .quote b{display:block;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
 
+/* gallery chips */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.chips button{padding:7px 14px;border-radius:99px;border:1px solid var(--line);background:var(--paper);font:500 13px var(--sans);color:var(--ink);cursor:pointer}
+.chips button:hover{background:var(--sea);border-color:var(--sea);color:#fff}
+
 /* payment plans */
 .plans{margin-top:30px}
 .plans h3{font:500 28px/1.2 var(--serif);margin:0 0 14px}
@@ -206,6 +211,7 @@ const KE = K + 'new Perspective-20260706T131744Z-3-001/11. Perspective/';
 const KS = K + '12. Photo of Show Units/';
 const N  = R2 + 'HWGftpQWextoPjE6Zq53E/';
 const NE = R2 + 'fRQRez9uQQ9l9nxK0tVPJ/';
+const NW = R2 + 'G0Mei5OM82apk3NzFJkMm/WhatsApp Image 2026-08-25 at ';
 const RW = R2 + 'CufUKBcqdnYSz15tfHLN7/drive-download-20260518T070459Z-3-001/STUDIO/STUDIO A, C/';
 const KM = R2 + 'Uh6orYcaZedypzWGJeuMZ/';
 const KMI= R2 + 'ALebZKTQgWoNx4soAZcIK/';
@@ -231,11 +237,9 @@ const PROJECTS = [
      [KE+'Interior/1-Main Lobby.jpg','Лобби'],
      [KE+'Interior/1-Surf Cafe.jpg','Серф-кафе'],
      [KE+'Interior/Fitness Room_01.jpg','Спортзал'],
-     [KS+'36-DSCF0290.JPG','Шоурум · 37 м²'],[KS+'36-DSCF0291.JPG','Шоурум · 37 м²'],
-     [KS+'36-DSCF0292.JPG','Шоурум · 37 м²'],[KS+'36-DSCF0293.JPG','Шоурум · 37 м²'],
+     ...[290,291,292,293,294,295,296,297].map(n=>[KS+'36-DSCF0'+n+'.JPG','Шоурум · 37 м²','apt']),
      [VB+'A3Ev73s5ErkMEWonIUM8g/1783347079169-gvea3dhw9g-1bl.jpg','Планировка · 37 м²','plan'],
-     [KS+'47-DSCF0316.JPG','Шоурум · 47 м²'],[KS+'47-DSCF0317.JPG','Шоурум · 47 м²'],
-     [KS+'47-DSCF0318.JPG','Шоурум · 47 м²'],[KS+'47-DSCF0319.JPG','Шоурум · 47 м²'],
+     ...[316,317,318,319,322,321,324,325,320].map(n=>[KS+'47-DSCF0'+n+'.JPG','Шоурум · 47 м²','apt']),
      [VB+'A3Ev73s5ErkMEWonIUM8g/1783347727748-ticbneftnsg-1bpm.jpg','Планировка · 47 м²','plan'],
    ],
    videos:[{id:'rx8cAtLaGvs',label:'Шоурум · 47 м²'}] },
@@ -250,6 +254,11 @@ const PROJECTS = [
      [NE+'Exterior 04.jpg'],[NE+'Exterior 02.jpg'],[NE+'Exterior 03.jpg'],
      [N+'01.jpg'],[N+'02.jpg'],[N+'03.jpg'],[N+'04.jpg'],[N+'05.jpg'],
      [N+'CGSCAPE-SAINTTOPEZ-10.jpg'],[N+'CGSCAPE-SAINTTOPEZ-09.jpg'],[N+'CGSCAPE-SAINTTOPEZ-07.jpg'],
+     ...['15.52.01 (5)','15.52.01 (2)','15.52.01 (3)','15.52.02','15.52.01 (4)','15.52.02 (1)','15.52.02 (2)']
+        .map(n=>[NW+n+'.jpeg','Квартира · визуализация','apt']),
+     [R2+'8OEATp8FpVqFLNw4zJFX4/archive.jpeg','Квартира · визуализация','apt'],
+     [R2+'Cdf4FR5M3Ys42Hek7CsD6/archive.jpeg','Квартира · визуализация','apt'],
+     [R2+'o0GP61gweWZvEfD00hgfm/A4.png','Планировка · 37 м²','plan'],
    ],
    videos:[] },
 
@@ -259,8 +268,8 @@ const PROJECTS = [
    pay:'Беспроцентная на 2 года, на период строительства. Можно продлить ещё на 1–2 года после сдачи проекта — тогда стоимость будет чуть выше.',
    furnished:true, tags:[],
    photos:[
-     [RW+'Studio A C 04.jpg','Визуализация интерьера'],[RW+'Studio A C 03.jpg','Визуализация интерьера'],
-     [RW+'Studio A C 07.jpg','Визуализация интерьера'],[RW+'Studio A C 05.jpg','Визуализация интерьера'],
+     [RW+'Studio A C 04.jpg','Квартира · визуализация','apt'],[RW+'Studio A C 03.jpg','Квартира · визуализация','apt'],
+     [RW+'Studio A C 07.jpg','Квартира · визуализация','apt'],[RW+'Studio A C 05.jpg','Квартира · визуализация','apt'],
      [VB+'BY24bavUdsoMItJk9BW9P/1784024741754-6ils01b8vdg-0.-studio-a.png','Планировка','plan'],
    ],
    plansNote:'В планах с постоплатой стоимость квартиры будет чуть выше.',
@@ -297,9 +306,7 @@ const PROJECTS = [
      [KM+'THE BEACH.jpg','The Beach'],[KM+'SKY POOL.jpg','Sky pool'],[KM+'POOL BAR.jpg','Pool bar'],
      [KM+'CORAL ISLAND.jpg','Coral Island'],[KM+'CLUBHOUSE & PARKING BUILDING.jpg','Клубный дом'],
      [KMI+'GRAND LOBBY.jpg','Лобби'],[KMI+'FITNESS.jpg','Фитнес'],[KMI+'CO-WORKING SPACE.jpg','Коворкинг'],
-     [KMS+'1BRplus46 -  (15).jpg','Шоурум · 46 м²'],[KMS+'1BRplus46 -  (2).jpg','Шоурум · 46 м²'],
-     [KMS+'1BRplus46 -  (3).jpg','Шоурум · 46 м²'],[KMS+'1BRplus46 -  (4).jpg','Шоурум · 46 м²'],
-     [KMS+'1BRplus46 -  (5).jpg','Шоурум · 46 м²'],
+     ...[15,2,3,4,5,12,14].map(n=>[KMS+'1BRplus46 -  ('+n+').jpg','Шоурум · 46 м²','apt']),
      [R2+'EXNT3c5eC7NihtHykqTvy/archive.webp','Планировка · 40 м²','plan'],
      [R2+'LousTXUlZvkTdnYaL8PpX/archive.webp','Планировка · 46 м²','plan'],
    ],
@@ -320,8 +327,7 @@ const PROJECTS = [
      [BT+'260331_SIRI_CTL_View 08_Gym_FINAL.png','Спортзал'],
      [BT+'260331_SIRI_CTL_view_09_Co-working_final4.png','Коворкинг'],
      [BT+'260424_SIRI_CTL_view04_Pet park_final.png','Пет-парк'],
-     [BTI+'Canvas Palette.1.jpg','Интерьер'],[BTI+'Canvas Palette.2.jpg','Интерьер'],[BTI+'Canvas Palette.3.jpg','Интерьер'],
-     [BTI+'Canvas Palette.6.jpg','Интерьер'],[BTI+'Canvas Palette.7.jpg','Интерьер'],
+     ...[1,2,3,7,6,5,4,12,13,14,10,9].map(n=>[BTI+'Canvas Palette.'+n+'.jpg','Квартира · визуализация','apt']),
      [R2+'GqiR2A2guOlHdsiWUgeSd/1Am (Pet).jpg','Планировка','plan'],
    ],
    videos:[] },
@@ -338,9 +344,16 @@ $('#nav').innerHTML = PROJECTS.map((p,i)=>`<a href="#${p.id}">${i+1}. ${p.title}
 $('#rows').innerHTML = PROJECTS.map((p,i)=>`<tr data-go="${p.id}"><td class="n">${i+1}</td><td><b>${p.title}</b></td><td>${p.beach}</td><td>${p.area}</td><td class="p">${p.from}</td><td>${p.done}</td></tr>`).join('');
 $('#rows').addEventListener('click',e=>{const tr=e.target.closest('tr');if(tr)location.hash=tr.dataset.go});
 
+PROJECTS.forEach(p=>{ // порядок: обложка → квартира → планировки → комплекс
+  const cx=p.photos.filter(x=>!x[2]), apt=p.photos.filter(x=>x[2]==='apt'), pl=p.photos.filter(x=>x[2]==='plan');
+  p.photos=[...cx.slice(0,1),...apt,...pl,...cx.slice(1)];
+});
+const chips = p => { const f=k=>p.photos.findIndex((x,i)=>(k==='cx'?!x[2]&&i>0:x[2]===k)), n=k=>p.photos.filter(x=>k==='cx'?!x[2]:x[2]===k).length;
+  return [['apt','Квартира'],['plan','Планировка'],['cx','Комплекс']].filter(([k])=>f(k)>=0).map(([k,t])=>`<button data-to="${f(k)}">${t} · ${n(k)}</button>`).join(''); };
 const carousel = p => p.photos.length ? `
+  <div class="chips">${chips(p)}</div>
   <div class="car">
-    <div class="track">${p.photos.map(([u,c,k])=>`<figure class="slide ${k||''}">${imgTag(u,1200,c||p.title)}${c?`<figcaption>${c}</figcaption>`:''}</figure>`).join('')}</div>
+    <div class="track">${p.photos.map(([u,c,k])=>`<figure class="slide ${k==='plan'?'plan':''}">${imgTag(u,1200,c||p.title)}${c?`<figcaption>${c}</figcaption>`:''}</figure>`).join('')}</div>
     <button class="arr l" aria-label="Назад">‹</button><button class="arr r" aria-label="Вперёд">›</button>
     <div class="count">1 / ${p.photos.length}</div>
   </div>
@@ -381,6 +394,7 @@ $('#projects').innerHTML = PROJECTS.map((p,i)=>`
 document.querySelectorAll('.car').forEach(car=>{
   const track=$('.track',car), n=track.children.length, count=$('.count',car);
   const thumbs=[...car.nextElementSibling.children];
+  car.previousElementSibling.querySelectorAll('[data-to]').forEach(b=>b.onclick=()=>go(+b.dataset.to));
   const idx=()=>Math.round(track.scrollLeft/track.clientWidth);
   const go=i=>track.scrollTo({left:((i+n)%n)*track.clientWidth,behavior:'smooth'});
   $('.l',car).onclick=()=>go(idx()-1); $('.r',car).onclick=()=>go(idx()+1);
